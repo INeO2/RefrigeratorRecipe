@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>냉장고 해결사 - 양지원 프로젝트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Amber -->
+    <!-- Application Structure Plan: Designed a single-page scrolling portfolio to showcase the '냉장고 해결사' project. Architecture: Hero, About, Project (with interactive tabs for 3 core features), Skills, Role, Retrospective, and Contact. This structure logically presents the project's story (from developer intro to project learnings) as described in the README, prioritizing a clear narrative flow. The interactive tabs for 'Core Features' allow users to explore the app's functions without leaving the page, directly translating the README's structure. -->
+    <!-- Visualization & Content Choices:
+    - Report Info: README.md content.
+    - Goal: Present a project portfolio.
+    - Core Features (README): Goal -> Organize/Inform. Method -> Interactive Tabs (HTML/Tailwind/JS). Interaction -> Click to toggle content visibility. Justification -> Mirrors README structure and allows deep-dive without scrolling. Method -> Vanilla JS toggle.
+    - Skills List (README): Goal -> Inform. Method -> Styled HTML/Tailwind "pills". Justification -> Visually scannable.
+    - Role/Outcomes/Learnings (README): Goal -> Inform. Method -> Styled HTML `<ul>` lists. Justification -> Clear, readable, standard.
+    - Architecture (README): Goal -> Inform. Method -> Text description + HTML `<div>` placeholder for diagram. Justification -> Adheres to 'NO SVG/Image' rule while acknowledging the item.
+    - NO Chart.js/Plotly used as README contains no quantitative data suitable for charting.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #fdfbf8;
+            color: #1f2937;
+        }
+        .nav-link {
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #d97706; /* amber-600 */
+            border-color: #d97706; /* amber-600 */
+        }
+        .skill-pill {
+            background-color: #fffbeb; /* amber-50 */
+            color: #b45309; /* amber-700 */
+            border: 1px solid #fde68a; /* amber-200 */
+        }
+        .feature-tab {
+            transition: all 0.2s;
+        }
+        .feature-tab.active {
+            background-color: #d97706; /* amber-600 */
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .feature-tab:not(.active):hover {
+            background-color: #fffbeb; /* amber-50 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-sm shadow-sm">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between p-4">
+            <div class="text-xl font-bold text-gray-800">
+                양지원: <span class="text-amber-600">냉장고 해결사</span>
+            </div>
+            <div class="hidden space-x-6 md:flex">
+                <a href="#about" class="nav-link text-gray-600 font-medium" onclick="smoothScroll(event)">About</a>
+                <a href="#project" class="nav-link text-gray-600 font-medium" onclick="smoothScroll(event)">Project</a>
+                <a href="#skills" class="nav-link text-gray-600 font-medium" onclick="smoothScroll(event)">Skills</a>
+                <a href="#retrospective" class="nav-link text-gray-600 font-medium" onclick="smoothScroll(event)">Retrospective</a>
+                <a href="#contact" class="nav-link text-gray-600 font-medium" onclick="smoothScroll(event)">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative flex h-[50vh] min-h-[300px] w-full items-center justify-center bg-white text-center">
+            <div class="p-6">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+                    냉장고 해결사
+                </h1>
+                <p class="mt-4 text-lg text-gray-600 sm:text-xl">
+                    싫어하는 것은 피할 수 있으면 피하고, 좋아하는 것만 해야 한다는 철학을 가지고 있습니다.
+                </p>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <a href="#project" onclick="smoothScroll(event)" class="rounded-lg bg-amber-600 px-6 py-3 text-base font-medium text-white shadow-md transition hover:bg-amber-700">
+                        프로젝트 보기
+                    </a>
+                    <a href="#contact" onclick="smoothScroll(event)" class="rounded-lg bg-gray-100 px-6 py-3 text-base font-medium text-amber-700 shadow-md transition hover:bg-gray-200">
+                        연락하기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section id="about" class="scroll-mt-20 py-24 sm:py-32">
+            <div class="mx-auto max-w-4xl px-6 lg:px-8">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
+                    About Me
+                </h2>
+                <div class="mt-10 rounded-lg border border-amber-200 bg-white p-8 shadow-lg">
+                    <p class="text-lg leading-8 text-gray-700">
+                        저는 좋은 개발 아이디어가 떠오르면 그걸 만들어 보는 실행력과 열정을 가지고 있습니다. '냉장고 해결사'는 제가 실생활에서 느꼈던 불편함을 해결하기 위해 Ollama와 Streamlit, 그리고 <strong class="font-semibold text-amber-700">LangChain(RAG) 및 Chroma 벡터 스토어</strong>를 핵심으로 하여 개발되었습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Details -->
+        <section id="project" class="scroll-mt-20 bg-white py-24 sm:py-32">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        프로젝트 상세
+                    </h2>
+                    <p class="mt-4 text-lg leading-8 text-gray-600">
+                        냉장고 앞에서 뭘 먹을 지 고민하며 낭비한 시간을 냉장고 해결사가 대신 해결해줍니다. 냉장고 속 재료와 사용자의 선호 요리, 알레르기를 고려해, 만들 수 있는 요리의 이름, 재료, 과정을 알려줍니다.
+                    </p>
+                </div>
+
+                <!-- Architecture -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold leading-9 tracking-tight text-gray-900 text-center">
+                        아키텍처/설계
+                    </h3>
+                    <div class="mt-6 max-w-3xl mx-auto space-y-6 text-base leading-7 text-gray-600">
+                        <p>
+                            로컬에 저장된 레시피(`recipes.csv`)를 `Chroma` 벡터 DB로 구축하여 AI의 지식 기반으로 삼습니다. 사용자가 입력을 요청하면, LangChain RAG 파이프라인이 이 지식 기반을 참조하고 `Ollama(Mistral)` 모델이 최종 레시피를 생성합니다. 모든 사용자 정보(냉장고 재료, 저장된 레시피)는 사용자의 로컬(`user_profile.json`, `my_saved_recipes.csv`)에 저장하는 방식을 채택했습니다.
+                        </p>
+                        <div class="w-full rounded-lg border-2 border-dashed border-amber-400 bg-amber-50 p-12 text-center">
+                            <span class="text-lg font-medium text-amber-700">아키텍처 다이어그램 (Placeholder)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Features - Interactive Tabs -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold leading-9 tracking-tight text-gray-900 text-center">
+                        핵심 기능
+                    </h3>
+                    <p class="mt-2 text-center text-gray-600">아래 탭을 클릭하여 각 기능의 구현 방식을 확인하세요.</p>
+                    
+                    <div class="mt-8 max-w-4xl mx-auto">
+                        <!-- Tab Buttons -->
+                        <div class="flex flex-col sm:flex-row sm:space-x-4 rounded-lg bg-amber-100 p-2">
+                            <button id="tab-btn-1" class="feature-tab active w-full rounded-md px-4 py-3 text-lg font-medium text-amber-800" onclick="changeFeatureTab(1)">
+                                1. 내 냉장고
+                            </button>
+                            <button id="tab-btn-2" class="feature-tab w-full rounded-md px-4 py-3 text-lg font-medium text-amber-800" onclick="changeFeatureTab(2)">
+                                2. 레시피 생성
+                            </button>
+                            <button id="tab-btn-3" class="feature-tab w-full rounded-md px-4 py-3 text-lg font-medium text-amber-800" onclick="changeFeatureTab(3)">
+                                3. 나의 레시피
+                            </button>
+                        </div>
+
+                        <!-- Tab Content Panels -->
+                        <div class="mt-6">
+                            <div id="tab-content-1" class="tab-content text-base leading-7 text-gray-700 space-y-4">
+                                <h4 class="text-xl font-semibold text-gray-900">내 냉장고 (My Fridge)</h4>
+                                <p>`st.form`을 사용해 사용자의 냉장고 재료와 선호/알레르기 정보를 입력받습니다. '냉장고 정보 저장' 버튼을 누르면 `save_user_profile` 함수가 호출되어, 입력된 내용을 `user_profile.json` 파일에 덮어씁니다.</p>
+                                <p>이 정보는 앱 세션(`st.session_state`)에 저장되며, '레시피 생성' 탭을 클릭할 때마다 기본값으로 자동 로드되어 사용자 편의성을 높였습니다.</p>
+                            </div>
+                            <div id="tab-content-2" class="tab-content hidden text-base leading-7 text-gray-700 space-y-4">
+                                <h4 class="text-xl font-semibold text-gray-900">레시피 생성 (Recipe Generation)</h4>
+                                <p>LangChain의 RAG(Retrieval-Augmented Generation) 파이프라인을 통해 구현되었습니다. 사용자가 '레시피 생성'을 요청하면, `setup_rag` 함수가 `Chroma` 벡터 스토어에서 `OllamaEmbeddings`를 사용해 관련 레시피(Context)를 검색(retrieve)합니다.</p>
+                                <p>이 정보는 사용자의 냉장고 재료(`question`)와 함께 `ChatPromptTemplate`으로 전달됩니다. 최종적으로 `Ollama(Mistral)` 모델이 이 모든 정보를 바탕으로 "냉장고 재료만 100% 사용"과 같은 핵심 규칙을 준수하는 레시피 텍스트를 생성(generate)합니다.</p>
+                            </div>
+                            <div id="tab-content-3" class="tab-content hidden text-base leading-7 text-gray-700 space-y-4">
+                                <h4 class="text-xl font-semibold text-gray-900">나의 레시피 (My Recipes)</h4>
+                                <p>'저장된 레시피 보기'와 '지식 기반 추가' 두 탭으로 구성됩니다.</p>
+                                <ul class="list-disc space-y-2 pl-5">
+                                    <li>
+                                        <strong class="font-medium">저장된 레시피 보기:</strong> AI가 생성한 레시피 묶음을 저장하면 `my_saved_recipes.csv` 파일에 저장됩니다. `pandas`를 사용해 이 파일을 읽어 `st.dataframe`으로 목록을 표시합니다. 사용자가 `st.selectbox`로 특정 레시피 묶음을 선택하면 `st.markdown`을 통해 저장된 전체 텍스트를 확인할 수 있습니다. '삭제' 버튼 클릭 시 `delete_recipe` 함수가 `pandas`로 해당 행을 제외하고 CSV 파일을 다시 저장한 뒤 `st.rerun()`을 호출해 목록을 실시간 갱신합니다.
+                                    </li>
+                                    <li>
+                                        <strong class="font-medium">지식 기반 추가 (RAG):</strong> 사용자가 `st.form`을 통해 새 레시피(이름, 재료, 과정)를 직접 입력하면, `append_to_rag_kb` 함수가 이 데이터를 `recipes.csv` (AI의 지식 기반) 파일에 `pandas`로 추가합니다. (이후 `rag_setup.py` 재실행 필요)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="scroll-mt-20 py-24 sm:py-32">
+            <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    기술 스택
+                </h2>
+                <div class="mt-10 flex flex-wrap justify-center gap-3">
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">Python</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">Streamlit</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">Ollama (Mistral)</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">LangChain</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">Chroma</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">Pandas</span>
+                    <span class="skill-pill rounded-full px-4 py-2 text-base font-semibold">JSON</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Retrospective (Role, Outcomes, Learnings) -->
+        <section id="retrospective" class="scroll-mt-20 bg-white py-24 sm:py-32">
+            <div class="mx-auto max-w-6xl px-6 lg:px-8">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
+                    프로젝트 회고
+                </h2>
+                
+                <div class="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    
+                    <!-- My Role -->
+                    <div class="rounded-lg border border-gray-200 bg-gray-50 p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">👨‍💻 나의 역할 및 기여</h3>
+                        <p class="mt-2 text-sm text-gray-600">1인 개발로 모든 기획 및 개발을 담당했습니다.</p>
+                        <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-gray-700">
+                            <li>Ollama, LangChain, Streamlit 기반 RAG 아키텍처 설계</li>
+                            <li>Chroma 벡터 스토어를 사용한 로컬 RAG 파이프라인 구축</li>
+                            <li>JSON/CSV 기반 로컬 데이터 영속성 관리 로직 개발</li>
+                            <li>Streamlit 컴포넌트를 활용한 전체 UI/UX 기획 및 구현</li>
+                        </ul>
+                    </div>
+
+                    <!-- Outcomes -->
+                    <div class="rounded-lg border border-gray-200 bg-gray-50 p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">📈 결과 및 성과</h3>
+                        <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-gray-700">
+                            <li>100% 로컬 환경에서 구동되는 RAG 레시피 추천 시스템 완성</li>
+                            <li>'추가 재료가 필요 없는' 맞춤형 레시피 생성 기능 확보</li>
+                            <li>`@st.cache_resource`를 활용한 RAG 체인 캐싱으로 빠른 응답 속도 유지</li>
+                        </ul>
+                    </div>
+
+                    <!-- Learnings & Improvements -->
+                    <div class="rounded-lg border border-gray-200 bg-gray-50 p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">💡 회고 (배운 점 및 개선점)</h3>
+                        <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-gray-700">
+                            <li>RAG 파이프라인과 Prompt Engineering의 중요성 이해</li>
+                            <li>Streamlit 세션 관리 및 데이터 영속성 결합 방법 학습</li>
+                            <li class="mt-4 pt-4 border-t border-gray-300">
+                                <strong class="font-medium text-amber-700">[개선점]</strong> 현재는 `rag_setup.py` 수동 실행 필요
+                            </li>
+                            <li>
+                                <strong class="font-medium text-amber-700">[개선 방향]</strong> `vector_store.add_texts()`를 호출하여 실시간으로 RAG 지식 기반을 업데이트하는 기능으로 개선 희망</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <footer id="contact" class="scroll-mt-20 bg-gray-900 text-white py-16">
+            <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    Contact
+                </h2>
+                <p class="mt-4 text-lg text-gray-300">
+                    프로젝트에 대해 더 궁금한 점이 있으시면 연락주세요.
+                </p>
+                <div class="mt-8 flex justify-center space-x-6">
+                    <a href="mailto:yangjiwon0615@naver.com" class="text-base font-medium text-amber-400 hover:text-amber-300">
+                        yangjiwon0615@naver.com
+                    </a>
+                    <a href="https://github.com/RAMB-02/RefrigeratorRecipe" target="_blank" rel="noopener noreferrer" class="text-base font-medium text-amber-400 hover:text-amber-300">
+                        GitHub
+                    </a>
+                </div>
+                <p class="mt-10 text-sm text-gray-400">
+                    &copy; 2025 Yang Jiwon. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        function smoothScroll(event) {
+            event.preventDefault();
+            const targetId = event.currentTarget.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function changeFeatureTab(tabIndex) {
+            const tabButtons = [
+                document.getElementById('tab-btn-1'),
+                document.getElementById('tab-btn-2'),
+                document.getElementById('tab-btn-3')
+            ];
+            const tabContents = [
+                document.getElementById('tab-content-1'),
+                document.getElementById('tab-content-2'),
+                document.getElementById('tab-content-3')
+            ];
+
+            tabButtons.forEach((btn, index) => {
+                const content = tabContents[index];
+                if (index + 1 === tabIndex) {
+                    btn.classList.add('active');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Navigation Scroll Spy
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
